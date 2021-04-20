@@ -1,23 +1,15 @@
 <?php
 
-namespace lib;
+namespace lib\Qa;
 
-use lib\BaseQA;
+use Exception;
+use lib\Qa\QAInterface;
 
-class QA extends BaseQA
+abstract class BaseQA implements QAInterface
 {
-    public function __construct()
+    public function qa($question)
     {
-        
-    }
-
-    public function valid(string $input): bool
-    {
-        if ($input != "綠茶") {
-            return false;
-        }
-
-        return true;
+        return readline($question);
     }
 
     public function showQA($question)
@@ -28,8 +20,8 @@ class QA extends BaseQA
         while ($stop == false) {
             $in = $this->qa($question);
 
-            if(!$this->valid($in)){
-                throw new \Exception("輸入錯誤的資料或格式");
+            if (!$this->valid($in)) {
+                throw new Exception("輸入錯誤的資料或格式");
             }
 
             if ($in != "") {

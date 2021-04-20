@@ -17,6 +17,17 @@ class Menu extends BaseMenu
         return array_unique($list);
     }
 
+    public function getNameSizeList()
+    {
+        $list = [];
+
+        foreach ($this->menu as $item) {
+            array_push($list, $item['name'].$item['size']);
+        }
+
+        return array_unique($list);
+    }
+
     public function getPrice($itemArray)
     {
         foreach ($this->menu as $item) {

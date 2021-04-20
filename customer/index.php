@@ -2,11 +2,12 @@
 
 require_once './vendor/autoload.php';
 
-use lib\QA;
-use lib\QAInterface;
+use lib\Qa\QA;
+use lib\Qa\QAInterface;
 use lib\Menu\Menu;
 use lib\Menu\Ingredients;
 use lib\Menu\MenuInterface;
+use lib\Valid\QaValid;
 
 $menuDatas = [
     [
@@ -77,6 +78,12 @@ $ingredients = new Ingredients;
 setMenu($ingredients, $ingredientsDatas);
 
 
+
+$qaValid = new QaValid($menu->getNameSizeList(), $ingredients->getNameList());
+$inputs = start(new QA($qaValid), "請輸入訂單: ");
+// $inputs = start(new QA($qaValid), "請輸入訂單(空白或EOF結束輸入): ");
+print_r($inputs);
+
 //========
 
 function setMenu(MenuInterface $menu, $menuDatas)
@@ -86,14 +93,7 @@ function setMenu(MenuInterface $menu, $menuDatas)
     }
 }
 
-
-
-// $ingredients = new Ingredients;
-
-
-// $inputs = start(new QA(),"請輸入訂單(空白或EOF結束輸入): ");
-// print_r($inputs);
-
-// function start(QAInterface $qa,$question){
-//     return $qa->showQA($question);
-// }
+function start(QAInterface $qa, $question)
+{
+    return $qa->showQA($question);
+}
