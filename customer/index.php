@@ -3,11 +3,11 @@
 require_once './vendor/autoload.php';
 
 use lib\Qa\QA;
-use lib\Qa\QAInterface;
 use lib\Menu\Menu;
 use lib\Menu\Ingredients;
 use lib\Menu\MenuInterface;
 use lib\Valid\QaValid;
+use lib\ConvertTrait;
 
 $menuDatas = [
     [
@@ -81,11 +81,20 @@ $qaValid = new QaValid($menu->getNameSizeList(), $ingredients->getNameList());
 
 $qa = new QA($qaValid, "請輸入訂單 : ");
 $orders = $qa->startQa();
-
 print_r($orders);
+$ordersPrice = ConvertTrait::getEachOrderPrice($orders,$menu,$ingredients);
 
-//========
 
+print_r($ordersPrice);
+
+
+/**
+ * setMenu 設定訂單
+ *
+ * @param  mixed $menu
+ * @param  mixed $menuDatas
+ * @return void
+ */
 function setMenu(MenuInterface $menu, $menuDatas)
 {
     foreach ($menuDatas as $v) {
@@ -93,7 +102,4 @@ function setMenu(MenuInterface $menu, $menuDatas)
     }
 }
 
-// function start(QAInterface $qa, $question)
-// {
-//     return $qa->showQA($question);
-// }
+

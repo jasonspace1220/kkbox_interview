@@ -4,11 +4,11 @@ namespace lib\Qa;
 
 use lib\Qa\BaseQA;
 use lib\Valid\ValidInterface;
-use lib\InputProcessTrait;
+use lib\ConvertTrait;
 
 class QA extends BaseQA
 {
-    use InputProcessTrait;
+    use ConvertTrait;
 
     protected $valid;
     protected $question;

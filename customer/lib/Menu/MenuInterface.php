@@ -27,7 +27,7 @@ interface MenuInterface {
     public function getNameList();
     
     /**
-     * getPrice 取得物品駕前
+     * getPrice 取得物品價錢
      *
      * @param  mixed $itemArray
      * @return void

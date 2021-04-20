@@ -2,14 +2,10 @@
 
 namespace lib\Qa;
 
-use Exception;
 use lib\Qa\QAInterface;
-use lib\InputProcessTrait;
 
 abstract class BaseQA implements QAInterface
 {
-    use InputProcessTrait;
-
     protected $valid;
     protected $question;
 
