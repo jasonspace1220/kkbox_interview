@@ -80,8 +80,8 @@ setMenu($ingredients, $ingredientsDatas);
 
 
 $qaValid = new QaValid($menu->getNameSizeList(), $ingredients->getNameList());
+
 $inputs = start(new QA($qaValid), "請輸入訂單: ");
-// $inputs = start(new QA($qaValid), "請輸入訂單(空白或EOF結束輸入): ");
 print_r($inputs);
 
 //========

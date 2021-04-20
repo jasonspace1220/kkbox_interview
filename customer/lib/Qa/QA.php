@@ -23,6 +23,11 @@ class QA extends BaseQA
 
             $in = $this->qa($question);
 
+            if($in == ""){
+                // $stop = true;
+                break;
+            }
+
             $inputArray = explode(",",$in);
             
 
@@ -33,11 +38,7 @@ class QA extends BaseQA
                 continue;
             }
 
-            
-            
-            $stop = true;
-            
-            break;
+            array_push($inputs,$in);
         }
 
         return $inputs;
