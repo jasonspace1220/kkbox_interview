@@ -4,40 +4,102 @@ require_once './vendor/autoload.php';
 
 use lib\QA;
 use lib\QAInterface;
-use lib\Menu;
-use lib\Ingredients;
+use lib\Menu\Menu;
+use lib\Menu\Ingredients;
+use lib\Menu\MenuInterface;
 
 $menuDatas = [
-    "綠茶" => [
-        "M" => 15,
-        "L" => 20
+    [
+        "name" => "綠茶",
+        "size" => "M",
+        "price" => 15
     ],
-    "烏龍" => [
-        "M" => 25,
-        "L" => 30
+    [
+        "name" => "綠茶",
+        "size" => "L",
+        "price" => 20
     ],
-    "奶茶" => [
-        "M" => 40,
-        "L" => 50,
+    [
+        "name" => "烏龍",
+        "size" => "M",
+        "price" => 25
     ],
-    "水果茶" => [
-        "M" => 50,
-        "L" => 60,
+    [
+        "name" => "烏龍",
+        "size" => "L",
+        "price" => 30
+    ],
+    [
+        "name" => "奶茶",
+        "size" => "M",
+        "price" => 40
+    ],
+    [
+        "name" => "奶茶",
+        "size" => "L",
+        "price" => 50
+    ],
+    [
+        "name" => "水果茶",
+        "size" => "M",
+        "price" => 50
+    ],
+    [
+        "name" => "水果茶",
+        "size" => "L",
+        "price" => 60
     ],
 ];
 
 $ingredientsDatas = [
-    "椰果" => 5,
-    "珍珠" => 5,
-    "仙草" => 10,
-    "布丁" => 10
+    [
+        "name" => "椰果",
+        "price" => 5
+    ],
+    [
+        "name" => "珍珠",
+        "price" => 5
+    ],
+    [
+        "name" => "仙草",
+        "price" => 10
+    ],
+    [
+        "name" => "布丁",
+        "price" => 10
+    ],
 ];
 
 $menu = new Menu;
-$menu->setMenu($menuDatas);
+setMenu($menu, $menuDatas);
 
 $ingredients = new Ingredients;
-$ingredients->setMenu($ingredientsDatas);
+setIngredient($ingredients, $ingredientsDatas);
+
+$m = $menu->getMenu();
+print_r($menu->getSizeList());
+// print_r($menu->getPrice(['name' => '水果茶', 'size' => 'M']));
+// print_r($ingredients->getPrice("布丁"));
+// print_r($m);
+// print_r($ingredients->getMenu());
+//========
+
+function setMenu(MenuInterface $menu, $menuDatas)
+{
+    foreach ($menuDatas as $v) {
+        $menu->addItem($v);
+    }
+}
+
+function setIngredient(MenuInterface $menu, $ingredientsDatas)
+{
+    foreach ($ingredientsDatas as $v) {
+        $menu->addItem($v);
+    }
+}
+
+
+// $ingredients = new Ingredients;
 
 
 // $inputs = start(new QA(),"請輸入訂單(空白或EOF結束輸入): ");
