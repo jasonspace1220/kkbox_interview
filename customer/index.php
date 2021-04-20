@@ -74,14 +74,9 @@ $menu = new Menu;
 setMenu($menu, $menuDatas);
 
 $ingredients = new Ingredients;
-setIngredient($ingredients, $ingredientsDatas);
+setMenu($ingredients, $ingredientsDatas);
 
-$m = $menu->getMenu();
-print_r($menu->getSizeList());
-// print_r($menu->getPrice(['name' => '水果茶', 'size' => 'M']));
-// print_r($ingredients->getPrice("布丁"));
-// print_r($m);
-// print_r($ingredients->getMenu());
+
 //========
 
 function setMenu(MenuInterface $menu, $menuDatas)
@@ -91,12 +86,6 @@ function setMenu(MenuInterface $menu, $menuDatas)
     }
 }
 
-function setIngredient(MenuInterface $menu, $ingredientsDatas)
-{
-    foreach ($ingredientsDatas as $v) {
-        $menu->addItem($v);
-    }
-}
 
 
 // $ingredients = new Ingredients;
