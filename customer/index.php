@@ -72,18 +72,17 @@ $ingredientsDatas = [
 ];
 
 $menu = new Menu;
-setMenu($menu, $menuDatas);
-
 $ingredients = new Ingredients;
+
+setMenu($menu, $menuDatas);
 setMenu($ingredients, $ingredientsDatas);
-
-
 
 $qaValid = new QaValid($menu->getNameSizeList(), $ingredients->getNameList());
 
-$inputs = start(new QA($qaValid), "請輸入訂單: ");
+$qa = new QA($qaValid, "請輸入訂單 : ");
+$orders = $qa->startQa();
 
-print_r($inputs);
+print_r($orders);
 
 //========
 
@@ -94,7 +93,7 @@ function setMenu(MenuInterface $menu, $menuDatas)
     }
 }
 
-function start(QAInterface $qa, $question)
-{
-    return $qa->showQA($question);
-}
+// function start(QAInterface $qa, $question)
+// {
+//     return $qa->showQA($question);
+// }

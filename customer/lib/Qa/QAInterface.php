@@ -2,8 +2,20 @@
 namespace lib\Qa;
 
 interface QAInterface{
+    
+    /**
+     * qa 顯示問題並取得結果
+     *
+     * @param  mixed $question
+     * @return string
+     */
+    public function qa(string $question) : string;
 
-    //給使用者問題並讓使用者回答
-    public function qa(string $question);
+    /**
+     * startQa 開始問答並取得回答結果
+     *
+     * @return array
+     */
+    public function startQa() : array;
 
 }

@@ -4,32 +4,34 @@ namespace lib\Qa;
 
 use Exception;
 use lib\Qa\QAInterface;
+use lib\InputProcessTrait;
 
 abstract class BaseQA implements QAInterface
 {
-    public function qa($question)
+    use InputProcessTrait;
+
+    protected $valid;
+    protected $question;
+
+    public function qa($question):string
     {
         return readline($question);
     }
 
-    public function showQA($question)
+    public function startQa() : array
     {
         $inputs = [];
         $stop = false;
 
         while ($stop == false) {
-            $in = $this->qa($question);
 
-            if (!$this->valid($in)) {
-                throw new Exception("輸入錯誤的資料或格式");
+            $in = $this->qa($this->question);
+
+            if ($in == "") {
+                break;
             }
 
-            if ($in != "") {
-                array_push($inputs, $in);
-                continue;
-            }
-            $stop = true;
-            break;
+            array_push($inputs, $in);
         }
 
         return $inputs;

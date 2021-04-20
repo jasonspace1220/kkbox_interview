@@ -11,23 +11,24 @@ class QA extends BaseQA
     use InputProcessTrait;
 
     protected $valid;
+    protected $question;
 
-    public function __construct(ValidInterface $valid)
+    public function __construct(ValidInterface $valid, $question)
     {
         $this->valid = $valid;
+        $this->question = $question;
     }
 
-    public function showQA($question)
+    public function startQa(): array
     {
         $inputs = [];
         $stop = false;
 
         while ($stop == false) {
 
-            $in = $this->qa($question);
+            $in = $this->qa($this->question);
 
             if ($in == "") {
-                // $stop = true;
                 break;
             }
 
