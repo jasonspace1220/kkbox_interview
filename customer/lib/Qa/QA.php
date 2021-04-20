@@ -28,10 +28,7 @@ class QA extends BaseQA
                 break;
             }
 
-            $inputArray = explode(",",$in);
-            
-
-            $valid = $this->valid->valid($inputArray);
+            $valid = $this->valid->valid($in);
             
             if($valid !== true){
                 echo $valid.PHP_EOL;

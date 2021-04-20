@@ -1,12 +1,11 @@
 <?php
 
 namespace lib\Valid;
+use lib\InputProcessTrait;
 
 class QaValid implements ValidInterface
 {
-    const MIN_LENGTH = 2;
-    const MENU_NAME_INDEX = 0;
-    const MENU_SIZE_INDEX = 1;
+    use InputProcessTrait;
 
     protected $menuNameSizeList;
     protected $ingredientsNameList;
@@ -17,8 +16,10 @@ class QaValid implements ValidInterface
         $this->ingredientsNameList = $ingredientsNameList;
     }
 
-    public function valid($inputArray)
+    public function valid($inputString)
     {
+        $inputArray = $this->inputToArray($inputString);
+
         if (!$this->format($inputArray)) {
             return "訂單格式錯誤";
         }
@@ -36,16 +37,16 @@ class QaValid implements ValidInterface
 
     protected function format($inputArray)
     {
-        if (count($inputArray) < self::MIN_LENGTH) {
-            return false;
+        if(isset($inputArray["name"]) && isset($inputArray["size"])){
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     protected function checkMenuItem($inputArray)
     {
-        $item = $inputArray[self::MENU_NAME_INDEX].$inputArray[self::MENU_SIZE_INDEX];
+        $item = $inputArray["name"].$inputArray["size"];
     
         if (!in_array($item, $this->menuNameSizeList)) {
             return false;
@@ -56,11 +57,7 @@ class QaValid implements ValidInterface
 
     protected function checkIngredients($inputArray)
     {
-        foreach ($inputArray as $k => $v) {
-            
-            if($k == self::MENU_NAME_INDEX || $k == self::MENU_SIZE_INDEX){
-                continue;
-            }
+        foreach ($inputArray["ingredients"] as $v) {
 
             $item = str_replace("+","",$v);
 
