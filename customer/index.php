@@ -82,6 +82,7 @@ setMenu($ingredients, $ingredientsDatas);
 $qaValid = new QaValid($menu->getNameSizeList(), $ingredients->getNameList());
 
 $inputs = start(new QA($qaValid), "請輸入訂單: ");
+
 print_r($inputs);
 
 //========
