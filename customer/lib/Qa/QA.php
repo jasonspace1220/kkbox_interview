@@ -32,6 +32,7 @@ class QA extends BaseQA
                 break;
             }
 
+            //輸入過驗證的話，直接轉換成對應需要的格式
             $inputArray = $this->inputToArray($in);
 
             $valid = $this->valid->valid($inputArray);
