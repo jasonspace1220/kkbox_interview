@@ -8,40 +8,46 @@ use lib\Menu\Ingredients;
 use lib\Menu\MenuInterface;
 use lib\Valid\QaValid;
 use lib\ConvertTrait;
+use lib\CalOrder\CalOrderTypeA;
+use lib\CalOrder\CalOrderInterface;
 
 
 class KkInterView
 {
     protected $menuDatas;
     protected $ingredientsDatas;
+    protected $menu;
+    protected $ingredients;
+    protected $qaValid;
+    protected $qa;
 
     public function __construct()
     {
         $this->ingredientsDatas = $this->defaultData('ingredients');
         $this->menuDatas = $this->defaultData('menu');
+        $this->menu = new Menu;
+        $this->ingredients = new Ingredients;
+        $this->setMenu($this->menu, $this->menuDatas);
+        $this->setMenu($this->ingredients, $this->ingredientsDatas);
+        $this->qaValid = new QaValid($this->menu->getNameSizeList(), $this->ingredients->getNameList());
+        $this->qa = new QA($this->qaValid, "請輸入訂單 : ");
     }
 
-    public function start()
+    public function run()
     {
-        $menu = new Menu;
+        //取得訂單
+        $ordersArray = $this->qa->startQa();
+        //將訂單轉為價錢
+        $ordersPriceArray = ConvertTrait::getEachOrderPrice($ordersArray, $this->menu, $this->ingredients);
 
-        $ingredients = new Ingredients;
+        $cal = new CalOrderTypeA;
+        
+        $result = $cal->countByArray($ordersPriceArray);
 
-        $this->setMenu($menu, $this->menuDatas);
-
-        $this->setMenu($ingredients, $this->ingredientsDatas);
-
-        $qaValid = new QaValid($menu->getNameSizeList(), $ingredients->getNameList());
-
-        $qa = new QA($qaValid, "請輸入訂單 : ");
-
-        $orders = $qa->startQa();
-
-        $ordersPrice = ConvertTrait::getEachOrderPrice($orders, $menu, $ingredients);
-
-
-        print_r($ordersPrice);
+        return $result;
     }
+
+
 
     /**
      * setMenu 設定訂單

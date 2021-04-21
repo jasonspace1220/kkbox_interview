@@ -6,4 +6,4 @@ use lib\KkInterView\KkInterView;
 
 $kk = new KkInterView();
 
-$kk->start();
+$kk->run();
